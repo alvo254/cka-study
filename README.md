@@ -1,386 +1,274 @@
-# cka-study
+# Certified Kubernetes Administrator (CKA) Study Guide
 
-## **Certified Kubernetes Administrator (CKA) Study Guide**
-
-Welcome to the **CKA Study Guide**. This guide provides a structured breakdown of Kubernetes concepts and practical labs to help you prepare for the Certified Kubernetes Administrator (CKA) exam. The content is organized into chapters and branches to align with specific exam topics.
+Welcome to the CKA Study Guide. This guide provides a detailed breakdown of the Kubernetes topics covered in the CKA exam, including exam tips, command-line tricks, and practical labs to reinforce your understanding. The content is structured into chapters and branches to align with specific exam objectives.
 
 ---
 
-## **Structure of the Repository**
+## Structure of the Repository
 
-The repository is divided into branches, each covering a specific topic from the CKA syllabus. Each branch contains:
+The repository is divided into branches, each focusing on a particular exam topic. Each branch contains:
 
-- **Docs Folder:** Contains study notes and reference materials.
+- **Docs Folder:** Study notes and reference materials.
     
-- **Labs Folder:** Includes hands-on lab scenarios and configurations.
-    
-
----
-
-## **Groupings by Topic**
-
-### **Part I: Kubernetes Fundamentals**
-
-#### **Branch 1: Introduction to Kubernetes**
-
-Topics include:
-
-- Velocity and immutability
-    
-- Declarative configuration
-    
-- Self-healing systems
-    
-- Cloud-native ecosystem
-    
-
-🔧 **Lab:**
-
-- Set up a Kubernetes cluster using Minikube or k3s.
-    
-- Practice basic `kubectl` commands.
-    
-
-#### **Branch 2: Kubernetes Architecture**
-
-Topics include:
-
-- Kubernetes components (API server, etcd, scheduler, kubelet, kube-proxy)
-    
-- Abstracting infrastructure
-    
-- Scaling clusters
-    
-
-🔧 **Lab:**
-
-- Explore cluster components using `kubectl`.
+- **Labs Folder:** Hands-on lab exercises and configurations.
     
 
 ---
 
-### **Part II: Creating and Running Containers**
+## Groupings by Topic
 
-#### **Branch 3: Container Images and Dockerfiles**
+### **Part I: Exam Overview and Preparation**
 
-Topics include:
+#### **Branch 1: Exam Details and Resources**
 
-- Building application images
+**Topics include:**
+
+- Exam Objectives
     
-- Optimizing image sizes
+- Curriculum Overview
     
-- Multistage builds
+- Cluster Architecture, Installation, and Configuration
     
-
-🔧 **Lab:**
-
-- Create a Dockerfile and push an image to a registry.
+- Workloads and Scheduling
     
-- Deploy a container with resource limits.
+- Services and Networking
     
-
-#### **Branch 4: Container Runtime Interface (CRI)**
-
-Topics include:
-
-- Running containers with Docker
+- Storage
     
-- Exploring the kuard application
+- Troubleshooting
+    
+- Kubernetes Primitives Involved
+    
+- Exam Environment and Tips
     
 
 🔧 **Lab:**
 
-- Deploy a sample application and inspect running Pods.
+- Practice time management and command-line tips using kubectl.
+    
+- Set up context and namespace for efficient cluster management.
+    
+
+#### **Branch 2: Command-Line Tips and Tricks**
+
+**Topics include:**
+
+- Setting a Context and Namespace
+    
+- Using an Alias for kubectl
+    
+- Using kubectl Command Auto-Completion
+    
+- Internalizing Resource Short Names
+    
+- Deleting Kubernetes Objects
+    
+- Finding Object Information
+    
+- Discovering Command Options
+    
+
+🔧 **Lab:**
+
+- Practice common kubectl commands.
+    
+- Explore kubectl aliases and auto-completion.
     
 
 ---
 
-### **Part III: Deploying Kubernetes Clusters**
+### **Part II: Cluster Architecture and Configuration**
 
-#### **Branch 5: Cluster Setup**
+#### **Branch 3: Cluster Architecture, Installation, and Configuration**
 
-Topics include:
+**Topics include:**
 
-- Installing Kubernetes on public cloud providers (GKE, AKS, EKS)
+- Role-Based Access Control (RBAC)
     
-- Running Kubernetes locally (Minikube)
+- Creating and Managing Kubernetes Clusters
     
-
-🔧 **Lab:**
-
-- Deploy a cluster on GKE and verify using `kubectl`.
+- Installing a Cluster
     
-
-#### **Branch 6: Kubernetes Proxy and DNS**
-
-Topics include:
-
-- Kubernetes DNS
+- Managing a Highly Available Cluster
     
-- Cluster networking
+- Upgrading a Cluster Version
+    
+- Backing Up and Restoring etcd
     
 
 🔧 **Lab:**
 
-- Explore DNS configurations within the cluster.
+- Install a Kubernetes cluster using kubeadm.
+    
+- Perform a cluster upgrade and etcd backup/restore.
     
 
 ---
 
-### **Part IV: Common kubectl Commands**
+### **Part III: Workloads and Scheduling**
 
-#### **Branch 7: Namespaces and Contexts**
+#### **Branch 4: Workloads**
 
-Topics include:
+**Topics include:**
 
-- Creating and managing namespaces
+- Managing Workloads with Deployments
     
-- Switching contexts
+- Performing Rolling Updates and Rollbacks
     
-
-🔧 **Lab:**
-
-- Practice creating namespaces and switching contexts.
+- Scaling Workloads
     
-
-#### **Branch 8: Debugging Commands**
-
-Topics include:
-
-- Viewing logs
-    
-- Running commands inside containers
+- Defining and Consuming Configuration Data
     
 
 🔧 **Lab:**
 
-- Use `kubectl logs` and `kubectl exec` for troubleshooting.
+- Create and manage Deployments.
+    
+- Implement rolling updates and horizontal scaling.
+    
+- Use ConfigMaps and Secrets in a Pod.
     
 
 ---
 
-### **Part V: Pods and Deployments**
+### **Part IV: Scheduling and Tooling**
 
-#### **Branch 9: Pods**
+#### **Branch 5: Scheduling and Tooling**
 
-Topics include:
+**Topics include:**
 
-- Creating and managing Pods
+- Defining Container Resource Requests and Limits
     
-- Health checks (liveness, readiness, startup probes)
+- Declarative Object Management Using Configuration Files
     
-
-🔧 **Lab:**
-
-- Create a Pod manifest and implement health probes.
-    
-
-#### **Branch 10: Deployments**
-
-Topics include:
-
-- Managing Deployments
-    
-- Rolling updates and rollout history
+- Using Common Templating Tools (Helm, Kustomize, yq)
     
 
 🔧 **Lab:**
 
-- Deploy an application and perform a rolling update.
+- Practice setting resource requests/limits.
+    
+- Manage Kubernetes objects using Helm and Kustomize.
     
 
 ---
 
-### **Part VI: Services and Ingress**
+### **Part V: Services and Networking**
 
-#### **Branch 11: Services**
+#### **Branch 6: Services and Networking**
 
-Topics include:
+**Topics include:**
 
-- ClusterIP, NodePort, and LoadBalancer
+- Kubernetes Networking Basics
     
-- Service discovery
+- Connectivity Between Containers and Pods
+    
+- Understanding Services (ClusterIP, NodePort, LoadBalancer)
+    
+- Understanding Ingress
+    
+- Using and Configuring CoreDNS
     
 
 🔧 **Lab:**
 
 - Expose an application using different service types.
     
-
-#### **Branch 12: Ingress**
-
-Topics include:
-
-- Ingress controllers
-    
-- TLS and advanced Ingress topics
-    
-
-🔧 **Lab:**
-
-- Set up an Ingress controller and configure rules.
+- Configure Ingress rules and DNS settings.
     
 
 ---
 
-### **Part VII: ConfigMaps, Secrets, and Jobs**
+### **Part VI: Storage**
 
-#### **Branch 13: ConfigMaps and Secrets**
+#### **Branch 7: Storage**
 
-Topics include:
+**Topics include:**
 
-- Creating and managing ConfigMaps
+- Understanding Volumes and Persistent Volumes
     
-- Handling Secrets securely
+- Static vs. Dynamic Provisioning
     
-
-🔧 **Lab:**
-
-- Use ConfigMaps and Secrets in a Pod.
+- Creating PersistentVolumes and PersistentVolumeClaims
     
-
-#### **Branch 14: Jobs and CronJobs**
-
-Topics include:
-
-- One-shot and parallel Jobs
-    
-- Scheduling tasks with CronJobs
+- Understanding Storage Classes
     
 
 🔧 **Lab:**
 
-- Create Jobs and CronJobs for scheduled tasks.
+- Create and manage PersistentVolumes and PersistentVolumeClaims.
+    
+- Implement Storage Classes in a cluster.
     
 
 ---
 
-### **Part VIII: Security and Networking**
+### **Part VII: Troubleshooting**
 
-#### **Branch 15: Role-Based Access Control (RBAC)**
+#### **Branch 8: Troubleshooting Kubernetes Clusters**
 
-Topics include:
+**Topics include:**
 
-- Roles, RoleBindings, and ClusterRoles
+- Evaluating Cluster and Node Logging
     
-- Managing RBAC policies
+- Monitoring Cluster Components and Applications
     
-
-🔧 **Lab:**
-
-- Create and apply RBAC policies.
+- Troubleshooting Application Failures
     
-
-#### **Branch 16: Network Policies**
-
-Topics include:
-
-- Securing Pod communication
+- Troubleshooting Pods and Services
     
-- Implementing Network Policies
+- Troubleshooting Cluster and Control Plane Failures
     
 
 🔧 **Lab:**
 
-- Apply Network Policies to restrict traffic.
+- Simulate and troubleshoot common cluster issues.
+    
+- Practice using kubectl logs and kubectl exec for debugging.
     
 
 ---
 
-### **Part IX: Troubleshooting and Storage**
+### **Part VIII: Wrapping Up**
 
-#### **Branch 17: Troubleshooting Kubernetes Clusters**
+#### **Branch 9: Final Preparation and Mock Exams**
 
-Topics include:
+**Topics include:**
 
-- Debugging Pods and nodes
+- Reviewing Exam Essentials
     
-- Identifying common issues
+- Practicing with Mock Exams
     
-
-🔧 **Lab:**
-
-- Simulate cluster issues and troubleshoot.
-    
-
-#### **Branch 18: Storage Solutions**
-
-Topics include:
-
-- PersistentVolumes and PersistentVolumeClaims
-    
-- Dynamic volume provisioning
+- Using the Killer.sh Simulator
     
 
 🔧 **Lab:**
 
-- Create and use PersistentVolumes in a Pod.
+- Take practice exams and identify areas for improvement.
     
 
 ---
 
-### **Part X: Extending Kubernetes and Multi-Cluster Deployments**
+## Tools and Lab Environment
 
-#### **Branch 19: Custom Resources and Operators**
+To complete the labs, you will need the following tools:
 
-Topics include:
-
-- CustomResourceDefinitions (CRDs)
+- Minikube
     
-- Operators
+- kubeadm
     
-
-🔧 **Lab:**
-
-- Create a CRD and deploy an Operator.
+- kubectl
     
-
-#### **Branch 20: Multi-Cluster Deployments**
-
-Topics include:
-
-- Deploying applications across multiple clusters
+- Docker
     
-
-🔧 **Lab:**
-
-- Set up a multi-cluster environment and deploy an application.
+- Helm
+    
+- Kustomize
     
 
 ---
 
-### **Final Preparation**
-
-#### **Branch 21: Mock Exams and Practice**
-
-Topics include:
-
-- Using Killer.sh simulator
-    
-- Completing mock exams
-    
-
-🔧 **Lab:**
-
-- Take practice exams and review weak areas.
-    
-
----
-
-## **Tools and Lab Environment**
-
-To simulate the concepts, the following tools will be used:
-
-- **Minikube**
-    
-- **k3s**
-    
-- **kubectl**
-    
-- **Docker**
-    
-
-## **Getting Started**
+## Getting Started
 
 1. Clone the repository to your local machine.
     
@@ -391,14 +279,16 @@ To simulate the concepts, the following tools will be used:
 git checkout <branch-name>
 ```
 
-3. Explore the **Docs** and **Labs** folders for materials and labs.
+3. Explore the Docs and Labs folders for study materials and exercises.
     
-4. Follow the weekly study plan to progress through the topics systematically.
+4. Follow the weekly study plan to systematically progress through the topics.
     
 
-## **Contributing**
+---
 
-We welcome contributions to improve the guide. Follow these steps:
+## Contributing
+
+We welcome contributions to improve the guide. Follow these steps to contribute:
 
 1. Fork the repository.
     
@@ -416,7 +306,7 @@ git checkout -b feature/YourFeature
 git commit -m 'Add YourFeature'
 ```
 
-4. Push to your branch:
+4. Push your changes:
     
 
 ```
