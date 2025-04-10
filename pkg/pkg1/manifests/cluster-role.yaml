@@ -1,0 +1,28 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: list-pods
+  namespace: rbac-example
+  labels:
+    rbac-pod-list: "true"
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - list
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: pods-services-aggregation-rules
+  namespace: rbac-example
+aggregationRule:
+  clusterRoleSelectors:
+  - matchLabels:
+      rbac-pod-list: "true"
+  - matchLabels:
+      rbac-service-delete: "true"
+rules: []

@@ -1,0 +1,38 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: validate-resource-labels
+spec:
+  validationFailureAction: Enforce  # Blocks deployments that don't have the required labels
+  background: true  # Scans existing resources for compliance
+  rules:
+    - name: enforce-labels
+      match:
+        resources:
+          kinds:
+            - Deployment
+      exclude:  # Exclude system and managed namespaces
+        resources:
+          namespaces:
+            - kube-system
+            - kube-public
+            - kube-node-lease
+            - kyverno
+            - argocd
+            - gke-managed-cim
+            - gke-managed-system
+            - gke-managed-volumepopulator
+            - gmp-public
+            - gmp-system
+            - monitoring
+            - datadog
+            - crossplane-system
+            - ingress-nginx 
+            - grafana
+      validate:
+        message: "All resources must have 'app' and 'env' labels."
+        pattern:
+          metadata:
+            labels:
+              app: "?*"
+              env: "?*"
