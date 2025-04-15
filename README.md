@@ -4,6 +4,34 @@ Welcome to the CKA Study Guide. This guide provides a detailed breakdown of the 
 
 ---
 
+
+helm install cilium cilium/cilium --version 1.17.1 \
+      --namespace kube-system \
+      --set ipam.mode=kubernetes \
+      --set kubeProxyReplacement=true \
+      --set gatewayAPI.enabled=true \
+      --set routingMode=tunnel \
+      --set bpf.masquerade=true \
+      --set prometheus.enabled=true \
+      --set operator.prometheus.enabled=true \
+      --set hubble.enabled=true \
+      --set hubble.metrics.enabled="{dns,drop,tcp,flow,port-distribution,icmp,http}" \
+      --set hubble.relay.enabled=true \
+      --set hubble.ui.enabled=true \
+      --set nodePort.enabled=true \
+      --set authentication.mutual.spire.enabled=true \
+      --set authentication.mutual.spire.install.enabled=true \
+      --set ingressController.enabled=true \
+      --set ingressController.default=true \
+      --set ingressController.service.type=NodePort \
+      --set ingressController.loadbalancerMode=shared \
+      --set crds.install=true \
+      --set tetragon.enabled=true \
+      --set tetragon.export.hubble.enabled=true 
+
+
+
+
 ## Structure of the Repository
 
 The repository is divided into branches, each focusing on a particular exam topic. Each branch contains:
