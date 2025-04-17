@@ -27,34 +27,16 @@ spec:
           image: alvin254/car-app:v1.0.0
           ports:
             - containerPort: 3000
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config
+              readOnly: true
+            - name: secret-volume
+              mountPath: /app/secret
+              readOnly: true
           env:
             - name: HOST
               value: "0.0.0.0"
-            - name: DB_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres-config
-                  key: DB_HOST
-            - name: DB_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres-config
-                  key: DB_PORT
-            - name: DB_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres-config
-                  key: DB_NAME
-            - name: DB_USER
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres-config
-                  key: DB_USER
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secret
-                  key: DB_PASSWORD
           resources:
             requests:
               cpu: "100m"
@@ -76,3 +58,10 @@ spec:
               port: 3000
             initialDelaySeconds: 15
             periodSeconds: 20
+      volumes:
+        - name: config-volume
+          configMap:
+            name: postgres-config
+        - name: secret-volume
+          secret:
+            secretName: postgres-secret

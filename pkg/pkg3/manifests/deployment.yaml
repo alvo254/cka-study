@@ -21,6 +21,7 @@ spec:
       labels:
         app: car-app
         env: production 
+    spec:  # 👈 containers should be here
       containers:
         - name: car-app
           image: alvin254/car-app:v1.0.0
