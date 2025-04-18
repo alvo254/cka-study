@@ -27,41 +27,16 @@ spec:
           image: alvin254/car-app:v1.0.0
           ports:
             - containerPort: 3000
-          volumeMounts:
-            - name: config-volume
-              mountPath: /app/config
-              readOnly: true
-            - name: secret-volume
-              mountPath: /app/secret
-              readOnly: true
           env:
             - name: HOST
               value: "0.0.0.0"
           resources:
             requests:
-              cpu: "100m"
+              cpu: "200m"
+              memory: "256Mi"
             limits:
               cpu: "500m"
-          lifecycle:
-            preStop:
-              exec:
-                command: ["sh", "-c", "sleep 10"]
-          readinessProbe:
-            httpGet:
-              path: /api/health
-              port: 3000
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              path: /api/health
-              port: 3000
-            initialDelaySeconds: 15
-            periodSeconds: 20
-      volumes:
-        - name: config-volume
-          configMap:
-            name: postgres-config
-        - name: secret-volume
-          secret:
-            secretName: postgres-secret
+              memory: "Mi"
+
+     
+
