@@ -12,7 +12,7 @@ spec:
     - matches:
         - path:
             type: Prefix
-            value: "/"               # same as your Ingress pathType: Prefix&#8203;:contentReference[oaicite:1]{index=1}
+            value: "/"             
       backendRefs:
         - name: fitness-hero-svc
           port: 3000
