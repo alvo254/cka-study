@@ -456,15 +456,15 @@ flowchart TD
     F -->|No| D[Decommission Ingress]
     D --> E[End]
     
-    classDef start fill:#9f9,stroke:#333,stroke-width:2px;
-    classDef process fill:#bbf,stroke:#333,stroke-width:1px;
-    classDef decision fill:#fbb,stroke:#333,stroke-width:1px;
-    classDef end fill:#f99,stroke:#333,stroke-width:2px;
+    classDef startclass fill:#9f9,stroke:#333,stroke-width:2px
+    classDef processclass fill:#bbf,stroke:#333,stroke-width:1px
+    classDef decisionclass fill:#fbb,stroke:#333,stroke-width:1px
+    classDef endclass fill:#f99,stroke:#333,stroke-width:2px
     
-    class S start;
-    class P,I,M,T,R,N,D process;
-    class C,F decision;
-    class E end;
+    class S startclass
+    class P,I,M,T,R,N,D processclass
+    class C,F decisionclass
+    class E endclass
 ```
 
 When migrating from Ingress to Gateway API:
