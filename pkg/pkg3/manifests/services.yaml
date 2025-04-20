@@ -6,12 +6,13 @@ metadata:
   labels:
     app: fitness-hero-svc
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: fitness-hero
   ports:
     - name: fitness-hero
       port: 3000        
       targetPort: 3000  
-      nodePort: 30001    
+      nodePort: 30001
+  
 

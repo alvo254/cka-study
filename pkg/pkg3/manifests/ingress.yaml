@@ -4,6 +4,7 @@ metadata:
   name: fitness-hero-ingress
   namespace: frontend
   annotations:
+    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:

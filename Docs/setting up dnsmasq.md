@@ -36,6 +36,7 @@ sudo systemctl restart systemd-resolved
 ```
 
 This configuration tells systemd-resolved to:
+
 - Use 127.0.0.1 (localhost) as the DNS server, where dnsmasq will be listening
 - Disable the stub listener to avoid port conflicts with dnsmasq
 
@@ -54,11 +55,16 @@ The Kind cluster runs in Docker containers. To find the IP address of the cluste
 
 ```bash
 # Find the node's bridge IP (kind default network)
-NODEIP=$(docker network inspect kind -f '{{(index .IPAM.Config 0).Gateway}}')
+NODEIP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' kind-control-plane)
 echo "kind node IP = $NODEIP"
 ```
 
+```fish
+set NODEIP (docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' kind-control-plane)
+```
+
 This command:
+
 1. Uses `docker network inspect` to examine the "kind" network
 2. Extracts the gateway IP address using Go template formatting
 3. Stores it in the NODEIP variable (typically something like 172.18.0.1)
@@ -72,7 +78,12 @@ dnsmasq supports a modular configuration approach through the `/etc/dnsmasq.d/` 
 echo "address=/.kind.cluster/${NODEIP}" | sudo tee -a /etc/dnsmasq.d/kind-local.conf
 ```
 
+```fish
+echo "address=/.kind.cluster/$NODEIP"| sudo tee /etc/dnsmasq.d/kind-local.conf >/dev/null
+```
+
 This command:
+
 1. Creates a file called `kind-local.conf` in the dnsmasq.d directory
 2. Adds a configuration entry that resolves all domains ending with `.kind.cluster` to your Kind node's IP
 
@@ -99,14 +110,16 @@ dnsmasq supports a modular configuration approach through the `/etc/dnsmasq.d/` 
 ### How Modular Configuration Works
 
 1. The main configuration file (`/etc/dnsmasq.conf`) typically includes this line:
-   ```
-   conf-dir=/etc/dnsmasq.d/,*.conf
-   ```
-
+    
+    ```
+    conf-dir=/etc/dnsmasq.d/,*.conf
+    ```
+    
 2. This directive tells dnsmasq to:
-   - Look in the `/etc/dnsmasq.d/` directory
-   - Load any file ending with `.conf` as a configuration fragment
-   - Process these files in alphabetical order
+    
+    - Look in the `/etc/dnsmasq.d/` directory
+    - Load any file ending with `.conf` as a configuration fragment
+    - Process these files in alphabetical order
 
 ### Benefits of This Approach
 
@@ -202,17 +215,20 @@ kubectl apply -f fitness-hero-ingress.yaml
 For local development, you may want to add your certificate to your system's trust store:
 
 #### On Ubuntu/Debian:
+
 ```bash
 sudo cp ~/certs/kind-cluster.crt /usr/local/share/ca-certificates/
 sudo update-ca-certificates
 ```
 
 #### On macOS:
+
 ```bash
 sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ~/certs/kind-cluster.crt
 ```
 
 #### For browsers only:
+
 Most browsers allow you to manually add exceptions for self-signed certificates when you visit the site.
 
 ## Using Your DNS and TLS Configuration with Kubernetes
@@ -232,42 +248,51 @@ If you encounter issues with DNS resolution or TLS:
 ### DNS Issues:
 
 1. Verify that dnsmasq is running:
-   ```bash
-   sudo systemctl status dnsmasq
-   ```
-
+    
+    ```bash
+    sudo systemctl status dnsmasq
+    ```
+    
 2. Check dnsmasq logs for errors:
-   ```bash
-   sudo journalctl -u dnsmasq
-   ```
-
+    
+    ```bash
+    sudo journalctl -u dnsmasq
+    ```
+    
 3. Test DNS resolution using dig:
-   ```bash
-   dig test.kind.cluster @127.0.0.1
-   ```
+    
+    ```bash
+    dig test.kind.cluster @127.0.0.1
+    ```
+    
 
 ### TLS Issues:
 
 1. Check that the secret was created correctly:
-   ```bash
-   kubectl get secret kind-cluster-tls -n frontend -o yaml
-   ```
-
+    
+    ```bash
+    kubectl get secret kind-cluster-tls -n frontend -o yaml
+    ```
+    
 2. Examine ingress controller logs:
-   ```bash
-   kubectl logs -n ingress-nginx deployment/ingress-nginx-controller
-   ```
-
+    
+    ```bash
+    kubectl logs -n ingress-nginx deployment/ingress-nginx-controller
+    ```
+    
 3. Verify the ingress resource:
-   ```bash
-   kubectl get ingress -n frontend
-   kubectl describe ingress fitness-hero-ingress -n frontend
-   ```
-
+    
+    ```bash
+    kubectl get ingress -n frontend
+    kubectl describe ingress fitness-hero-ingress -n frontend
+    ```
+    
 4. Test TLS connection:
-   ```bash
-   curl -vk https://fitness-hero.kind.cluster
-   ```
+    
+    ```bash
+    curl -vk https://fitness-hero.kind.cluster
+    ```
+    
 
 ## Conclusion
 
