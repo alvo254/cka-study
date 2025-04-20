@@ -1,0 +1,6 @@
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: GatewayClass
+metadata:
+  name: nginx-class
+spec:
+  controllerName: ingress-nginx    # must match your controller’s registered name&#8203;:contentReference[oaicite:0]{index=0}

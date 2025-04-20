@@ -1,0 +1,18 @@
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: fitness-hero-route
+  namespace: frontend
+spec:
+  parentRefs:
+    - name: fitness-hero-gateway      # ties this route to your Gateway
+  hostnames:
+    - fitness-hero.kind.cluster
+  rules:
+    - matches:
+        - path:
+            type: Prefix
+            value: "/"               # same as your Ingress pathType: Prefix&#8203;:contentReference[oaicite:1]{index=1}
+      backendRefs:
+        - name: fitness-hero-svc
+          port: 3000

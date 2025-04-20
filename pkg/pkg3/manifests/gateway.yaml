@@ -1,0 +1,12 @@
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: fitness-hero-gateway
+  namespace: frontend
+spec:
+  gatewayClassName: nginx-class
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      hostname: fitness-hero.kind.cluster   # matches your DNS wildcard
