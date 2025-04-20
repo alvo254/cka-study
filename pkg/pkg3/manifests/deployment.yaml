@@ -36,13 +36,13 @@ spec:
                 command: ["sh", "-c", "sleep 10"]
           readinessProbe:
             httpGet:
-              path:  /api/health
+              path:  /
               port: 3000
-            initialDelaySeconds: 5
+            initialDelaySeconds: 60
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /api/health
+              path: /
               port: 3000
             initialDelaySeconds: 15
             periodSeconds: 20
