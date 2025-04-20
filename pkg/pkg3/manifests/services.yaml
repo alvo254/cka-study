@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Service
+metadata: 
+  name: fitness-hero-svc
+  namespace: frontend
+  labels:
+    app: fitness-hero-svc
+spec:
+  type: NodePort
+  selector:
+    app: fitness-hero
+  ports:
+    - name: fitness-hero
+      port: 3000        
+      targetPort: 3000  
+      nodePort: 30001    
+

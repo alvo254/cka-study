@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: car-app
+  name: fitness-hero
   namespace: frontend  
   labels:
-    app: car-app
+    app: fitness-hero
     env: production  
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: car-app
+      app: fitness-hero
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -19,12 +19,12 @@ spec:
   template:
     metadata:
       labels:
-        app: car-app
+        app: fitness-hero
         env: production 
-    spec:  # 👈 containers should be here
+    spec:  
       containers:
-        - name: car-app
-          image: alvin254/car-app:v1.0.0
+        - name: fitness-hero
+          image: alvin254/fitnesshero
           ports:
             - containerPort: 3000
           env:

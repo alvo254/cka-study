@@ -21,6 +21,8 @@ helm install cilium cilium/cilium --version 1.17.1 \
       --set nodePort.enabled=true \
       --set authentication.mutual.spire.enabled=true \
       --set authentication.mutual.spire.install.enabled=true \
+      --set loadBalancer.enabled=true \
+      --set loadBalancer.algorithm=maglev \
       --set ingressController.enabled=true \
       --set ingressController.default=true \
       --set ingressController.service.type=NodePort \
