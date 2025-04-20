@@ -41,9 +41,6 @@ helm install ingress-nginx ingress-nginx/ingress-nginx \
 			--set controller.hostPort.https=443
 ```
 
-
-
-
 # Check that the namespace exists
 
 ```
