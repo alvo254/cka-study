@@ -2,10 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: car-app
-  namespace: frontend  
+  namespace: frontend
   labels:
     app: car-app
-    env: production  
+    env: production
 spec:
   replicas: 3
   selector:
@@ -20,22 +20,50 @@ spec:
     metadata:
       labels:
         app: car-app
-        env: production 
+        env: production
     spec:
       containers:
-        - name: car-app
-          image: alvin254/car-app:v1.0.0
-          ports:
-            - containerPort: 3000
-          env:
-            - name: HOST
-              value: "0.0.0.0"
-          resources:
-            requests:
-              cpu: "200m"
-            limits:
-              cpu: "500m"
-
-
-     
-
+      - name: car-app
+        image: alvin254/car-app:v1.0.0
+        ports:
+        - containerPort: 3000
+        env:
+        - name: HOST
+          value: "0.0.0.0"
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/config
+          readOnly: true
+        - name: secret-volume
+          mountPath: /app/secret
+          readOnly: true
+        lifecycle:
+          preStop:
+            exec:
+              command: ["sh", "-c", "sleep 10"]
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 60
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 15
+          periodSeconds: 20
+      volumes:
+      - name: config-volume
+        configMap:
+          name: postgres-config
+      - name: secret-volume
+        secret:
+          secretName: postgres-secret
