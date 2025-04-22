@@ -15,8 +15,10 @@ A comprehensive repository of resources, configurations, and practical examples 
   - [Practice Modules](#practice-modules)
     - [Module 1: RBAC \& Authentication](#module-1-rbac--authentication)
     - [Module 2: Workloads \& Scheduling](#module-2-workloads--scheduling)
-    - [Module 3: Networking \& Services](#module-3-networking--services)
+    - [Module 3: Services \& Ingress](#module-3-services--ingress)
     - [Module 4: Storage \& Persistence](#module-4-storage--persistence)
+    - [Module 5: Networking \& Policies](#module-5-networking--policies)
+    - [Module 6: Troubleshooting \& Specialized Workloads](#module-6-troubleshooting--specialized-workloads)
   - [Kustomize Implementation](#kustomize-implementation)
     - [Kustomize Structure](#kustomize-structure)
     - [Applying Kustomizations](#applying-kustomizations)
@@ -39,18 +41,20 @@ This repository contains a structured collection of Kubernetes configurations, d
 ├── kind.yaml                # Kind cluster primary configuration
 ├── koornchart.yaml          # Helm chart configuration
 ├── Docs/                    # Documentation and reference materials
-├── misc/                    # Supplementary Kubernetes manifests
-├── pkg/                     # Practice modules with examples
-│   ├── pkg1/                # RBAC & Authentication
-│   ├── pkg2/                # Workloads & Scheduling
-│   ├── pkg3/                # Networking & Services
-│   └── pkg4/                # Storage & Persistence
 ├── kustomize/               # Kustomize configurations
 │   ├── base/                # Base resources
 │   └── overlays/            # Environment-specific overlays
 │       ├── dev/             # Development environment
 │       ├── staging/         # Staging environment
 │       └── prod/            # Production environment
+├── misc/                    # Supplementary Kubernetes manifests
+├── pkg/                     # Practice modules with examples
+│   ├── pkg1/                # RBAC & Authentication
+│   ├── pkg2/                # Workloads & Scheduling
+│   ├── pkg3/                # Services & Ingress
+│   ├── pkg4/                # Storage & Persistence
+│   ├── pkg5/                # Networking & Policies
+│   └── pkg6/                # Troubleshooting & Specialized Workloads
 └── README.md                # This documentation
 ```
 
@@ -66,7 +70,7 @@ This repository is structured following GitOps principles, which means:
 
 4. **Automated Synchronization**: While not implemented in this study repository, in a production setting, tools like ArgoCD or Flux could be configured to automatically apply changes from this repository to your clusters.
 
-5. **Package Organization**: The repository is organized into logical modules (pkg1-4) to clearly separate different aspects of Kubernetes administration, making it easier to understand concepts incrementally.
+5. **Package Organization**: The repository is organized into logical modules (pkg1-6) to clearly separate different aspects of Kubernetes administration, making it easier to understand concepts incrementally.
 
 This approach mirrors real-world Kubernetes administration practices, where configuration changes flow through a Git repository rather than being applied directly to clusters, enabling better governance, collaboration, and reliability.
 
@@ -101,6 +105,9 @@ The `Docs/` directory contains comprehensive guides on key Kubernetes concepts:
 | `comprehensive gateway API.md` | Complete reference for the Gateway API specification |
 | `gatewayAPI.md` | Quick reference for Gateway API resources |
 | `kubeadm-cluster-setup.md` | Step-by-step guide for setting up a production cluster |
+| `Kubernetes Architecture Deep Dive.md` | Detailed explanation of Kubernetes architecture components |
+| `Kustomize Structure.md` | Guide to implementing Kustomize for configuration management |
+| `labels & annotations.md` | Best practices for using labels and annotations |
 | `port mappings.md` | Reference for common service port mappings |
 | `setting up dnsmasq.md` | Guide for configuring DNS resolution |
 | `volume guide.md` | Complete overview of Kubernetes storage options |
@@ -122,19 +129,27 @@ The repository includes production-ready Kubernetes configurations:
 
 ### Module 1: RBAC & Authentication
 
-Practice implementing Kubernetes Role-Based Access Control, ServiceAccounts, and authentication mechanisms.
+Practice implementing Kubernetes Role-Based Access Control, ServiceAccounts, and authentication mechanisms. The module includes examples of Roles, ClusterRoles, RoleBindings, and ServiceAccounts to help you understand Kubernetes authentication and authorization systems.
 
 ### Module 2: Workloads & Scheduling
 
-Explore deployment strategies, scaling mechanisms, and resource management in Kubernetes.
+Explore deployment strategies, scaling mechanisms, and resource management in Kubernetes. This module covers Deployments, ConfigMaps, Secrets, and StatefulSets, along with practical examples of resource allocation and limitation.
 
-### Module 3: Networking & Services
+### Module 3: Services & Ingress
 
-Master Kubernetes networking concepts, including Services, Ingress, and the new Gateway API.
+Master Kubernetes service discovery and external access patterns, including ClusterIP, NodePort, and LoadBalancer service types, as well as Ingress resources and the newer Gateway API for handling external traffic.
 
 ### Module 4: Storage & Persistence
 
-Learn how to implement persistent storage solutions in Kubernetes applications.
+Learn how to implement persistent storage solutions in Kubernetes applications. This module covers PersistentVolumes, PersistentVolumeClaims, StorageClasses, and practical examples of incorporating storage into application deployments.
+
+### Module 5: Networking & Policies
+
+Deepen your understanding of Kubernetes networking concepts, including NodePort services, ClusterIP services, and Network Policies. This module provides hands-on examples for controlling traffic flow between pods and implementing security at the network level.
+
+### Module 6: Troubleshooting & Specialized Workloads
+
+Develop troubleshooting skills and understand specialized workload types in Kubernetes. This module covers Jobs, CronJobs, DaemonSets, and StatefulSets, along with practical troubleshooting scenarios you might encounter in the CKA exam.
 
 ## Kustomize Implementation
 
@@ -157,7 +172,7 @@ kustomize/
         └── kustomization.yaml
 ```
 
-The base kustomization includes core resources used across all environments, while each overlay specifies environment-specific customizations such as resource limits, replica counts, and additional components.
+The base kustomization includes core resources used across all environments, while each overlay specifies environment-specific customizations such as resource limits, replica counts, and additional components. For more detailed information, refer to the `Kustomize Structure.md` document in the Docs directory.
 
 ### Applying Kustomizations
 
@@ -248,6 +263,14 @@ kubectl logs pod-name -n namespace-name
 
 # Execute commands inside a container
 kubectl exec -it pod-name -- /bin/bash
+
+# Troubleshoot failed pods (Module 6)
+kubectl describe pod problematic-pod
+kubectl logs problematic-pod --previous
+
+# Check network policies (Module 5)
+kubectl get networkpolicies --all-namespaces
+kubectl describe networkpolicy policy-name -n namespace
 ```
 
 ## Additional Resources
@@ -257,6 +280,8 @@ kubectl exec -it pod-name -- /bin/bash
 - [Kubernetes the Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way)
 - [Kustomize Documentation](https://kubectl.docs.kubernetes.io/references/kustomize/)
 - [GitOps Principles](https://www.gitops.tech/)
+- [Kubernetes Networking Deep Dive](https://kubernetes.io/docs/concepts/cluster-administration/networking/)
+- [Kubernetes Troubleshooting Guide](https://kubernetes.io/docs/tasks/debug-application-cluster/troubleshooting/)
 
 ## Contributing
 
@@ -265,32 +290,3 @@ Contributions to improve the examples, documentation, or add new practice exerci
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-
-helm install cilium cilium/cilium --version 1.17.1 \
-      --namespace kube-system \
-      --set ipam.mode=kubernetes \
-      --set kubeProxyReplacement=true \
-      --set gatewayAPI.enabled=true \
-      --set routingMode=tunnel \
-      --set bpf.masquerade=true \
-      --set prometheus.enabled=true \
-      --set operator.prometheus.enabled=true \
-      --set hubble.enabled=true \
-      --set hubble.metrics.enabled="{dns,drop,tcp,flow,port-distribution,icmp,http}" \
-      --set hubble.relay.enabled=true \
-      --set hubble.ui.enabled=true \
-      --set nodePort.enabled=true \
-      --set authentication.mutual.spire.enabled=true \
-      --set authentication.mutual.spire.install.enabled=true \
-      --set loadBalancer.enabled=true \
-      --set loadBalancer.algorithm=maglev \
-      --set ingressController.enabled=true \
-      --set ingressController.default=true \
-      --set ingressController.service.type=NodePort \
-      --set ingressController.loadbalancerMode=shared \
-      --set crds.install=true \
-      --set tetragon.enabled=true \
-      --set tetragon.export.hubble.enabled=true 
-
-
