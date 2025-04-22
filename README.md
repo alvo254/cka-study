@@ -27,7 +27,6 @@ A comprehensive repository of resources, configurations, and practical examples 
   - [Common Commands](#common-commands)
   - [Additional Resources](#additional-resources)
   - [Contributing](#contributing)
-  - [License](#license)
 
 ## Introduction
 
@@ -287,6 +286,3 @@ kubectl describe networkpolicy policy-name -n namespace
 
 Contributions to improve the examples, documentation, or add new practice exercises are welcome. Please submit a pull request or open an issue to discuss your ideas.
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
