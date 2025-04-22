@@ -13,6 +13,11 @@ nodes:
           kubeletExtraArgs:
             # node-ip: "10.0.1.2"
             node-labels: "rack=rack0"
+      - |
+        kind: ClusterConfiguration
+        apiServer:
+          extraArgs:
+            anonymous-auth: "false"
     extraPortMappings:
       - containerPort: 80
         hostPort: 80
