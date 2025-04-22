@@ -1,0 +1,33 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Reference the base kustomization
+resources:
+- ../../base
+- ../../../pkg/pkg1/manifests/cluster-role.yaml
+- ../../../pkg/pkg2/manifests/postgres-configmap.yaml
+- ../../../pkg/pkg2/manifests/postgres-secret.yaml
+- ../../../pkg/pkg2/manifests/hpa.yaml
+- ../../../pkg/pkg3/manifests/gateway.yaml
+- ../../../pkg/pkg3/manifests/gatewayClass.yaml
+- ../../../pkg/pkg3/manifests/gatewayHttpRoute.yaml
+
+# Patch common labels for this environment
+commonLabels:
+  environment: prod
+
+# Configure high availability for production
+patches:
+- target:
+    kind: Deployment
+    name: .*
+  patch: |-
+    - op: replace
+      path: /spec/replicas
+      value: 3
+    - op: replace
+      path: /spec/template/spec/containers/0/resources/limits/memory
+      value: 1Gi
+    - op: replace
+      path: /spec/template/spec/containers/0/resources/requests/memory
+      value: 512Mi

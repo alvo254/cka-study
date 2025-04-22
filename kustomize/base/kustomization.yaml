@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Common resources across all environments
+resources:
+- ../../pkg/pkg1/manifests/deployment.yaml
+- ../../pkg/pkg1/manifests/service-account.yaml
+- ../../pkg/pkg1/manifests/role.yaml
+- ../../pkg/pkg1/manifests/role-binding.yaml
+- ../../pkg/pkg2/manifests/deployment.yaml
+- ../../pkg/pkg2/manifests/car-service.yaml
+- ../../pkg/pkg3/manifests/deployment.yaml
+- ../../pkg/pkg3/manifests/services.yaml
+- ../../pkg/pkg4/manifests/deployment.yaml
+- ../../pkg/pkg4/manifests/services.yaml
+
+# Common labels to be applied to all resources
+commonLabels:
+  app: cka-study
+  environment: base
