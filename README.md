@@ -148,7 +148,7 @@ Deepen your understanding of Kubernetes networking concepts, including NodePort 
 
 ### Module 6: Troubleshooting & Specialized Workloads
 
-Develop troubleshooting skills and understand specialized workload types in Kubernetes. This module covers Jobs, CronJobs, DaemonSets, and StatefulSets, along with practical troubleshooting scenarios you might encounter in the CKA exam.
+Develop troubleshooting skills and understand specialized workload types in Kubernetes. This module covers Jobs, CronJobs, DaemonSets, affinity, tolerations and StatefulSets, along with practical troubleshooting scenarios you might encounter in the CKA exam.
 
 ## Kustomize Implementation
 
