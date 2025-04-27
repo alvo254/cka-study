@@ -8,7 +8,7 @@ spec:
   template:
     metadata:
       labels:
-        env: dev
+        env: production
     spec:
       containers:
       - name: car-app
