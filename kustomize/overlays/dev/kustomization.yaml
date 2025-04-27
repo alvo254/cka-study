@@ -1,24 +1,17 @@
+# ./kustomize/overlays/dev/kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-# Reference the base kustomization
 resources:
 - ../../base
-- ../../../pkg/pkg2/manifests/postgres-configmap.yaml
 
-# Patch common labels for this environment
-commonLabels:
-  environment: dev
+namespace: frontend-dev
 
-# Configure resource limits for dev
+labels:
+- includeSelectors: true
+  pairs:
+    app: car-app
+    environment: dev
+
 patches:
-- target:
-    kind: Deployment
-    name: .*
-  patch: |-
-    - op: replace
-      path: /spec/template/spec/containers/0/resources/limits/memory
-      value: 512Mi
-    - op: replace
-      path: /spec/template/spec/containers/0/resources/requests/memory
-      value: 256Mi
+- path: patches/deployment-patch.yaml

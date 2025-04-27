@@ -4,6 +4,9 @@ kind: Kustomization
 # Common resources across all environments
 resources:
 - manifests/deployment.yaml
+- manifests/service-account.yaml
+- manifests/car-service.yaml
+
 
 
 # Common labels to be applied to all resources

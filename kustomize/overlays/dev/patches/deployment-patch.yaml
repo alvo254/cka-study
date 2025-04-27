@@ -1,0 +1,23 @@
+# ./kustomize/overlays/dev/patches/deployment-patch.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: car-app
+  namespace: frontend  # Make sure this matches what's in your base deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        env: development
+    spec:
+      containers:
+      - name: car-app
+        image: alvin254/car-app:v1.0.0-dev
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
