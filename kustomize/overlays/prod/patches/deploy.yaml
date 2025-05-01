@@ -4,7 +4,7 @@ metadata:
   name: car-app
   namespace: frontend  # Make sure this matches what's in your base deployment
 spec:
-  replicas: 1
+  replicas: 3
   template:
     metadata:
       labels:

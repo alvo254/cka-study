@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
   name: car-app
   namespace: frontend  
-  labels:
-    app: car-app
 spec:
   replicas: 3
   selector:
@@ -17,9 +15,6 @@ spec:
       maxSurge: 25%
   template:
     metadata:
-      labels:
-        app: car-app
-        env: production 
       containers:
         - name: car-app
           image: alvin254/car-app:v1.0.0
